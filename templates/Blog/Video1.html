@@ -1,0 +1,27 @@
+{#<html>#}
+{#<title>#}
+{#    video#}
+{#</title>#}
+{#<body>#}
+{#<form enctype="multipart/form-data" method="POST" action="V1">#}
+{#    {% csrf_token %}#}
+{#<br><br>#}
+{#<video width='400' controls>#}
+{#<source src='{{ MEDIA_URL }}{{ videofile.verbose_name }}' type='video/mp4'>#}
+{#Your browser does not support the video tag.#}
+{#</video>#}
+{#<br><br>#}
+{#</form>#}
+{#</body>#}
+{#</html>#}
+{% load filetransfers %}
+<html>
+<title>
+    Download
+</title>
+<body>
+
+{% url upload.views.download_handler pk=upload.pk as fallback_url %}
+<a href="{% firstof upload.file|public_download_url fallback_url %}">Download</a>
+</body>
+</html>
